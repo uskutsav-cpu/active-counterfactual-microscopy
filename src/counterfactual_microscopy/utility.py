@@ -25,8 +25,6 @@ def expected_information_gain(
 
     p_b = model.predictive(action.name, "biology")
     p_n = model.predictive(action.name, "nuisance")
-    prior = np.array([p_biology, 1.0 - p_biology], dtype=float)
-
     mixture = p_biology * p_b + (1.0 - p_biology) * p_n
     conditional_entropy = p_biology * entropy_bits(p_b) + (1.0 - p_biology) * entropy_bits(p_n)
     return max(0.0, entropy_bits(mixture) - conditional_entropy)

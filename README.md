@@ -36,17 +36,17 @@ This repository is designed to make that claim falsifiable.
 
 ```mermaid
 flowchart LR
-    X[Initial fluorescence image] --> M[Biological prediction model]
-    M --> P[Prediction + latent evidence]
-    P --> H[Competing explanations\nH_B vs H_N]
-    H --> A[Candidate optical interventions]
-    A --> U[Expected information gain\n- dose penalty - time penalty]
-    U --> R[Reacquire same specimen]
-    R --> B[Bayesian evidence update]
-    B --> V{Verification verdict}
-    V -->|high P(H_B)| S[SUPPORTED]
-    V -->|low P(H_B)| F[FALSIFIED]
-    V -->|insufficient evidence| Z[ABSTAIN]
+    X["Initial fluorescence image"] --> M["Biological prediction model"]
+    M --> P["Prediction and evidence"]
+    P --> H["Biology-driven vs nuisance-driven"]
+    H --> A["Candidate optical interventions"]
+    A --> U["Information gain minus experimental cost"]
+    U --> R["Reacquire same specimen"]
+    R --> B["Bayesian evidence update"]
+    B --> V{"Verification verdict"}
+    V -->|"biology supported"| S["SUPPORTED"]
+    V -->|"nuisance supported"| F["FALSIFIED"]
+    V -->|"insufficient evidence"| Z["ABSTAIN"]
 ```
 
 ## Repository layout

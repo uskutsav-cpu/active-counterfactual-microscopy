@@ -1,5 +1,5 @@
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
 
@@ -11,6 +11,7 @@ from .policy import InformationGainPolicy
 @dataclass(slots=True)
 class RandomPolicy:
     seed: int | None = None
+    _rng: np.random.Generator = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         self._rng = np.random.default_rng(self.seed)
