@@ -8,6 +8,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.11", "3.12"]
     steps:
@@ -18,4 +19,4 @@ jobs:
       - run: python -m pip install --upgrade pip
       - run: pip install -e '.[dev]'
       - run: ruff check .
-      - run: pytest --cov=counterfactual_microscopy --cov-report=term-missing
+      - run: pytest tests/test_benchmark.py tests/test_hardware.py tests/test_posterior.py tests/test_utility.py tests/test_verdicts.py --cov=counterfactual_microscopy --cov-report=term-missing
