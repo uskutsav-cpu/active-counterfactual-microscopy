@@ -1,0 +1,30 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+.env
+.DS_Store
+.ipynb_checkpoints/
+
+# Research outputs
+outputs/
+runs/
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+
+# Raw microscopy data should stay out of git by default
+data/raw/
+data/interim/
+*.tif
+*.tiff
+*.nd2
+*.czi
+*.lif
+*.ome.tif

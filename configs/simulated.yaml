@@ -1,0 +1,25 @@
+seed: 7
+prior_biology: 0.5
+dose_weight: 0.20
+time_weight: 0.10
+support_threshold: 0.85
+falsify_threshold: 0.15
+ground_truth: nuisance
+max_steps: 3
+
+actions:
+  lower_gain:
+    dose_cost: 0.05
+    time_cost: 0.10
+    biology: [0.80, 0.15, 0.05]
+    nuisance: [0.20, 0.30, 0.50]
+  refocus:
+    dose_cost: 0.02
+    time_cost: 0.12
+    biology: [0.55, 0.30, 0.15]
+    nuisance: [0.45, 0.35, 0.20]
+  lower_exposure:
+    dose_cost: 0.01
+    time_cost: 0.08
+    biology: [0.72, 0.20, 0.08]
+    nuisance: [0.30, 0.32, 0.38]

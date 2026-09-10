@@ -1,0 +1,13 @@
+repetitions: 1000
+seed: 17
+policies:
+  - counterfactual_eig
+  - random
+  - fixed
+primary_metrics:
+  - correct_verdict_rate
+  - false_support_rate
+  - abstention_rate
+  - mean_dose_cost
+  - mean_time_cost
+  - resolved_per_unit_cost

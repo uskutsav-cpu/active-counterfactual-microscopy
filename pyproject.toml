@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "counterfactual-microscopy"
+version = "0.1.0"
+description = "Cost-aware active counterfactual verification for fluorescence microscopy AI predictions."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Utsav Sunil Kumar"}]
+dependencies = [
+  "numpy>=1.26",
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "pytest-cov>=5.0",
+  "ruff>=0.6",
+]
+ml = [
+  "scikit-learn>=1.5",
+  "torch>=2.3",
+]
+
+[project.scripts]
+cfm-demo = "counterfactual_microscopy.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
