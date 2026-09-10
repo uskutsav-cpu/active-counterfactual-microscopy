@@ -1,0 +1,32 @@
+name: Research engine checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MPLBACKEND: Agg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements-research.txt
+      - run: python -m pip install -r requirements-research.txt
+      - run: python -m pip install -e .
+      - run: python -m ruff check src/counterfactual_microscopy/research tests/research
+      - run: python -m pytest --cov=counterfactual_microscopy.research --cov-report=term-missing --junitxml=research-tests.xml
+      - if: matrix.python-version == '3.12'
+        run: python -m counterfactual_microscopy.research smoke --out results/research/ci-smoke
+      - if: matrix.python-version == '3.12'
+        run: python -m counterfactual_microscopy.research verify-run --run results/research/ci-smoke

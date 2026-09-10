@@ -1,0 +1,14 @@
+seed: 42
+source: synthetic
+model: logistic
+target: correctness
+train_n: 400
+calibration_n: 300
+development_n: 400
+test_n: 300
+budgets: [1, 2]
+bootstrap_repeats: 200
+tune_thresholds: true
+early_stop: false
+max_development_group_error: 0.15
+min_development_groups: 20

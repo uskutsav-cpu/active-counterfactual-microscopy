@@ -1,0 +1,2 @@
+-r requirements-research.txt
+imagecodecs>=2024.1
