@@ -1,0 +1,27 @@
+seed: 42
+source: synthetic
+model: logistic
+target: correctness
+train_n: 400
+calibration_n: 240
+development_n: 160
+test_n: 240
+image_size: 48
+train_correlation: 0.95
+calibration_correlation: 0.5
+development_correlation: 0.5
+test_correlation: 0.5
+policies: [eig, random, fixed, uncertainty, ood, quality, no_reacquisition]
+budgets: [1, 2, 3]
+max_dose: 3.0
+max_seconds: 1.0
+n_states: 5
+bootstrap_repeats: 200
+tune_thresholds: false
+support_threshold: 0.9
+falsify_threshold: 0.1
+early_stop: false
+gates:
+  min_history_support: 3
+  initial_ood: true
+  registration: true

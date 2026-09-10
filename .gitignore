@@ -28,3 +28,8 @@ data/interim/
 *.czi
 *.lif
 *.ome.tif
+
+# Active microscopy research: keep measurements and model artifacts out of Git
+/data/research/
+/results/research/
+*.joblib

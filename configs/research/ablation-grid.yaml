@@ -1,0 +1,3 @@
+seed: [42, 43, 44]
+model: [logistic, forest]
+nuisance_strength: [0.0, 0.5, 1.0]
