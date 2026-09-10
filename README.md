@@ -97,16 +97,18 @@ from counterfactual_microscopy.actions import AcquisitionAction
 from counterfactual_microscopy.hypotheses import DiscretePredictiveModel
 from counterfactual_microscopy.policy import InformationGainPolicy
 
-model = DiscretePredictiveModel({
-    "lower_gain": {
-        "biology": [0.80, 0.15, 0.05],
-        "nuisance": [0.20, 0.30, 0.50],
-    },
-    "refocus": {
-        "biology": [0.55, 0.30, 0.15],
-        "nuisance": [0.45, 0.35, 0.20],
-    },
-})
+model = DiscretePredictiveModel(
+    {
+        "lower_gain": {
+            "biology": [0.80, 0.15, 0.05],
+            "nuisance": [0.20, 0.30, 0.50],
+        },
+        "refocus": {
+            "biology": [0.55, 0.30, 0.15],
+            "nuisance": [0.45, 0.35, 0.20],
+        },
+    }
+)
 
 actions = [
     AcquisitionAction("lower_gain", dose_cost=0.05, time_cost=0.10),

@@ -7,17 +7,13 @@ from counterfactual_microscopy.utility import expected_information_gain
 
 
 def test_informative_action_has_positive_eig() -> None:
-    model = DiscretePredictiveModel(
-        {"a": {"biology": [0.9, 0.1], "nuisance": [0.1, 0.9]}}
-    )
+    model = DiscretePredictiveModel({"a": {"biology": [0.9, 0.1], "nuisance": [0.1, 0.9]}})
     eig = expected_information_gain(AcquisitionAction("a"), model, 0.5)
     assert eig > 0.5
 
 
 def test_identical_predictives_have_zero_eig() -> None:
-    model = DiscretePredictiveModel(
-        {"a": {"biology": [0.7, 0.3], "nuisance": [0.7, 0.3]}}
-    )
+    model = DiscretePredictiveModel({"a": {"biology": [0.7, 0.3], "nuisance": [0.7, 0.3]}})
     eig = expected_information_gain(AcquisitionAction("a"), model, 0.5)
     assert eig == pytest.approx(0.0, abs=1e-12)
 

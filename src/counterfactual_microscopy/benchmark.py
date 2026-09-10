@@ -1,5 +1,5 @@
+from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Sequence
 
 import numpy as np
 
@@ -44,4 +44,4 @@ class FixedPolicy:
         raise KeyError(f"fixed action {self.action_name!r} not found")
 
 
-__all__ = ["InformationGainPolicy", "RandomPolicy", "FixedPolicy"]
+__all__ = ["FixedPolicy", "InformationGainPolicy", "RandomPolicy"]
