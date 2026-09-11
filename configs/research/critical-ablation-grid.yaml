@@ -1,0 +1,3 @@
+dose_weight: [0.0, 0.03]
+time_weight: [0.0, 0.05]
+n_states: [3, 5, 7]
