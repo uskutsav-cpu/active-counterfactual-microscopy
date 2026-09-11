@@ -10,6 +10,7 @@ permissions:
 jobs:
   research:
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
@@ -26,28 +27,69 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
-          cache-dependency-path: requirements-research.txt
+
+      - name: Create isolated environment
+        run: |
+          python -m venv .ci-venv
+          .ci-venv/bin/python -m pip install --upgrade pip setuptools wheel
 
       - name: Install research dependencies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements-research.txt
-          python -m pip install -e .
+          .ci-venv/bin/python -m pip install --no-cache-dir -r requirements-research.txt
+          .ci-venv/bin/python -m pip install --no-cache-dir -e .
+
+      - name: Verify scientific stack
+        run: |
+          .ci-venv/bin/python - <<'PY'
+          import sys
+          import numpy
+          import scipy
+          import scipy.stats
+          import sklearn
+
+          print("python:", sys.version)
+          print("python executable:", sys.executable)
+          print("numpy:", numpy.__version__)
+          print("numpy file:", numpy.__file__)
+          print("scipy:", scipy.__version__)
+          print("scipy file:", scipy.__file__)
+          print("sklearn:", sklearn.__version__)
+          print("scipy.stats import: OK")
+          PY
 
       - name: Ruff
-        run: python -m ruff check src/counterfactual_microscopy/research tests/research
+        run: |
+          .ci-venv/bin/python -m ruff check \
+            src/counterfactual_microscopy/research \
+            tests/research
 
       - name: Research tests
-        run: python -m pytest tests/research --cov=counterfactual_microscopy.research --cov-report=term-missing --junitxml=research-tests.xml
+        run: |
+          .ci-venv/bin/python -m pytest \
+            tests/research \
+            --cov=counterfactual_microscopy.research \
+            --cov-report=term-missing \
+            --junitxml=research-tests.xml
 
       - name: Core regression tests
-        run: python -m pytest tests/test_benchmark.py tests/test_hardware.py tests/test_posterior.py tests/test_utility.py tests/test_verdicts.py
+        run: |
+          .ci-venv/bin/python -m pytest \
+            tests/test_benchmark.py \
+            tests/test_hardware.py \
+            tests/test_posterior.py \
+            tests/test_utility.py \
+            tests/test_verdicts.py
 
       - name: Smoke experiment
         if: matrix.python-version == '3.12'
-        run: python -m counterfactual_microscopy.research smoke --out results/research/ci-smoke
+        run: |
+          .ci-venv/bin/python -m counterfactual_microscopy.research \
+            smoke \
+            --out results/research/ci-smoke
 
       - name: Verify smoke experiment
         if: matrix.python-version == '3.12'
-        run: python -m counterfactual_microscopy.research verify-run --run results/research/ci-smoke
+        run: |
+          .ci-venv/bin/python -m counterfactual_microscopy.research \
+            verify-run \
+            --run results/research/ci-smoke
