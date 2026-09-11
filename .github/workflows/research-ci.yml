@@ -66,14 +66,16 @@ jobs:
       - name: Research tests
         run: |
           .ci-venv/bin/python -m pytest \
+            --disable-plugin-autoload \
+            --assert=plain \
             tests/research \
-            --cov=counterfactual_microscopy.research \
-            --cov-report=term-missing \
             --junitxml=research-tests.xml
 
       - name: Core regression tests
         run: |
           .ci-venv/bin/python -m pytest \
+            --disable-plugin-autoload \
+            --assert=plain \
             tests/test_benchmark.py \
             tests/test_hardware.py \
             tests/test_posterior.py \
