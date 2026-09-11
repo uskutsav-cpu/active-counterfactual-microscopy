@@ -36,3 +36,6 @@ data/interim/
 
 # Local research execution logs
 logs/research/
+
+# Generated master-analysis outputs
+/analysis/synthetic-master/
