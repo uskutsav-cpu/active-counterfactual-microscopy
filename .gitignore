@@ -33,3 +33,6 @@ data/interim/
 /data/research/
 /results/research/
 *.joblib
+
+# Local research execution logs
+logs/research/
