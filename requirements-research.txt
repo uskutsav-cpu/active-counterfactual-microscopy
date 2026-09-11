@@ -1,5 +1,5 @@
-numpy>=1.26,<2.4
-scipy>=1.11,<2
+numpy>=1.26.4,<2.3
+scipy>=1.17,<1.18
 scikit-learn>=1.5,<2
 PyYAML>=6,<7
 matplotlib>=3.8,<4
