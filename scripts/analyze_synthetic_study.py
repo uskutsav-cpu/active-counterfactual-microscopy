@@ -12,7 +12,6 @@ import subprocess
 from collections import defaultdict
 from pathlib import Path
 
-
 EXPECTED_FAMILIES = {
     "replications": 18,
     "misspecification": 12,
