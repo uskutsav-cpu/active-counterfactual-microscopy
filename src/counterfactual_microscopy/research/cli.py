@@ -64,6 +64,22 @@ def parser() -> argparse.ArgumentParser:
     q.add_argument("--train-correlation", type=float, default=0.95)
     q.add_argument("--other-correlation", type=float, default=0.5)
     q.add_argument("--allow-incomplete", action="store_true")
+    q = sub.add_parser(
+        "stack-index",
+        help="create an audited same-specimen LSFM optical-stack manifest",
+    )
+    q.add_argument("--root", required=True)
+    q.add_argument("--out", required=True)
+    q.add_argument("--focus-plane", type=int, default=26)
+    q.add_argument("--step-um", type=float, default=2.0)
+    q.add_argument("--expected-planes", type=int, default=51)
+    q = sub.add_parser(
+        "stack-actions",
+        help="freeze a multi-plane optical-action catalog",
+    )
+    q.add_argument("--manifest", required=True)
+    q.add_argument("--out", required=True)
+    q.add_argument("--planes", nargs="+", type=int)
     q = sub.add_parser("hardware-dry-run", help="offline fake camera only")
     q.add_argument("--out", required=True)
     q = sub.add_parser("verify-run", help="check hashes of frozen result artifacts")
@@ -143,6 +159,24 @@ def main(argv: list[str] | None = None) -> int:
                 train_correlation=args.train_correlation,
                 other_correlation=args.other_correlation,
                 allow_incomplete=args.allow_incomplete,
+            )
+        elif args.command == "stack-index":
+            from .stacks import index_lsfm
+
+            result = index_lsfm(
+                args.root,
+                args.out,
+                focus_plane=args.focus_plane,
+                step_um=args.step_um,
+                expected_planes=args.expected_planes,
+            )
+        elif args.command == "stack-actions":
+            from .stacks import action_catalog
+
+            result = action_catalog(
+                args.manifest,
+                args.out,
+                planes=args.planes,
             )
         elif args.command == "hardware-dry-run":
             from .hardware import dry_run
