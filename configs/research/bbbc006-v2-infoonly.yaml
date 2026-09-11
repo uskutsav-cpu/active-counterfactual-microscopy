@@ -1,0 +1,43 @@
+seed: 20260911
+
+source: panels
+
+panels:
+  train: ../../data/research/bbbc006-v2-panels/train.npz
+  calibration: ../../data/research/bbbc006-v2-panels/calibration.npz
+  development: ../../data/research/bbbc006-v2-panels/development.npz
+  test: ../../data/research/bbbc006-v2-panels/test.npz
+
+model: logistic
+target: correctness
+
+policies:
+  - eig
+  - random
+  - fixed
+  - uncertainty
+  - ood
+  - quality
+  - no_reacquisition
+
+budgets: [1, 2]
+
+max_dose: 2.0
+max_seconds: 2.0
+
+dose_weight: 0.0
+time_weight: 0.0
+stop_if_negative: true
+early_stop: false
+
+support_threshold: 0.9
+falsify_threshold: 0.1
+tune_thresholds: false
+
+bootstrap_repeats: 1000
+n_states: 4
+
+gates:
+  min_history_support: 3
+  max_shift: 6.0
+  min_correlation: 0.05
