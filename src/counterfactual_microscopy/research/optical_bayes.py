@@ -53,7 +53,17 @@ class VectorQuantizer:
         if n_bins < 2:
             raise ValueError("n_bins must be >= 2")
         self.n_bins = int(n_bins)
-        self.seed = int(seed)
+
+        seed_value = int(seed)
+
+        if seed_value < 0:
+            raise ValueError("seed must be nonnegative")
+
+        # NumPy Generator/SeedSequence accepts arbitrarily large positive
+        # integer seeds, but sklearn KMeans still routes integer random_state
+        # through the legacy RandomState-compatible 32-bit seed boundary.
+        # Preserve deterministic hashing while adapting only at that API edge.
+        self.seed = seed_value % (1 << 32)
 
     def fit(self, x: np.ndarray) -> VectorQuantizer:
         x = np.asarray(x, dtype=float)

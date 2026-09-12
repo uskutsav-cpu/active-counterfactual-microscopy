@@ -110,3 +110,39 @@ def test_choose_action_eig_uses_joint_information():
 
     assert chosen == 0
     assert len(scores) == 2
+
+
+def test_quantizer_normalizes_large_seed():
+    # Exact seed that triggered the development-run sklearn failure.
+    seed = 17815202501571508454
+
+    x = np.array(
+        [
+            [0.0, 0.0],
+            [0.1, 0.2],
+            [1.0, 1.0],
+            [1.1, 1.2],
+            [2.0, 2.0],
+            [2.1, 2.2],
+        ]
+    )
+
+    first = VectorQuantizer(
+        3,
+        seed=seed,
+    ).fit(x)
+
+    second = VectorQuantizer(
+        3,
+        seed=seed,
+    ).fit(x)
+
+    expected = seed % (1 << 32)
+
+    assert first.seed == expected
+    assert 0 <= first.seed <= (1 << 32) - 1
+
+    assert np.array_equal(
+        first.transform(x),
+        second.transform(x),
+    )
