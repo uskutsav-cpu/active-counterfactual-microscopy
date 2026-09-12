@@ -1,0 +1,53 @@
+{
+  "actions_um": [
+    -18,
+    -12,
+    -6,
+    6,
+    12,
+    18
+  ],
+  "alpha": 1.0,
+  "biological_validation": false,
+  "bootstrap_repeats": 2000,
+  "budgets": [
+    1,
+    2,
+    3
+  ],
+  "development_selection": {
+    "alpha": 1.0,
+    "avg_eig_entropy": 2.1462770103827364,
+    "avg_eig_mae": 9.537329500859302,
+    "distinct_b1": 4,
+    "eligible": true,
+    "entropy_b1": 2.4124919294700495,
+    "mae_b1": 9.507999775669255,
+    "n_bins": 5,
+    "random_entropy_b1": 2.546480060762799,
+    "random_mae_b1": 9.676501311939015,
+    "run": "results/research/lsfm-bayesian-tuning/bins5-alpha1",
+    "zero_support_b3": 0.2
+  },
+  "final_test_reuse_allowed": false,
+  "hardware_validation": false,
+  "n_bins": 5,
+  "response_matrix": "results/research/lsfm-relative-evidence-v1/response_matrix.csv",
+  "response_matrix_sha256": "a59526191b68e4e6909c4da043e772e1c21992618b8cae30d5639d6fd9fe94da",
+  "seed": 20260911,
+  "source_commit_before_selection_freeze": "d3e62bafd5c0307730b5f51e401ae5f68217049f",
+  "stage": "test",
+  "states_um": [
+    -30,
+    -24,
+    -18,
+    -12,
+    -6,
+    6,
+    12,
+    18,
+    24,
+    30
+  ],
+  "study": "LSFM Bayesian final optical test"
+}
